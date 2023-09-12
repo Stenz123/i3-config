@@ -158,10 +158,10 @@ bindsym $mod+Control+Right move workspace to output right
 #        bindsym Mod1+ntilde resize grow width 10 px or 10 ppt
 
 # same bindings, but for the arrow keys
-	bindsym Mod1+Left resize shrink width 5 px or 5 ppt
-        bindsym Mod1+Down resize grow height 5 px or 5 ppt
-        bindsym Mod1+Up resize shrink height 5 px or 5 ppt
-        bindsym Mod1+Right resize grow width 5 px or 5 ppt
+	bindsym $mod+Mod1+Left resize shrink width 5 px or 5 ppt
+        bindsym $mod+Mod1+Down resize grow height 5 px or 5 ppt
+        bindsym $mod+Mod1+Up resize shrink height 5 px or 5 ppt
+        bindsym $mod+Mod1+Right resize grow width 5 px or 5 ppt
 
 # back to normal: Enter or Escape
 #	bindsym Return mode "default"
