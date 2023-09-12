@@ -6,12 +6,14 @@
 # See README.md for usage instructions
 bar_color="#7f7fff"
 volume_step=1
-brightness_step=2.5
+brightness_step=480
 max_volume=100
+bl_brightness=/sys/class/backlight/intel_backlight/brightness
+max_brightness_path=/sys/class/backlight/intel_backlight/max_brightness
 
 # Uses regex to get volume from pactl
 function get_volume {
-    pactl get-sink-volume @DEFAULT_SINK@ | grep -Po '[0-9]{1,3}(?=%)' | head -1
+  pactl get-sink-volume @DEFAULT_SINK@ | grep -Po '[0-9]{1,3}(?=%)' | head -1
 }
 
 # Uses regex to get mute status from pactl
@@ -21,7 +23,11 @@ function get_mute {
 
 # Uses regex to get brightness from xbacklight
 function get_brightness {
-    xbacklight | grep -Po '[0-9]{1,3}' | head -n 1
+    cat $bl_brightness
+}
+
+function get_max_brightness() {
+    cat $max_brightness_path
 }
 
 # Returns a mute icon, a volume-low icon, or a volume-high icon, depending on the volume
@@ -51,9 +57,9 @@ function show_volume_notif {
 
 # Displays a brightness notification using dunstify
 function show_brightness_notif {
-    brightness=$(get_brightness)
+    cur_brightness=$((100 * $(get_brightness) / $(get_max_brightness)))
     get_brightness_icon
-    dunstify -t 1000 -r 2593 -u normal "$brightness_icon $brightness%" -h int:value:$brightness -h string:hlcolor:$bar_color
+    dunstify -t 1000  -r 2594 -u normal "$brightness_icon $cur_brightness%" -h int:value:$cur_brightness -h string:hlcolor:$bar_color
 }
 
 # Main function - Takes user input, "volume_up", "volume_down", "brightness_up", or "brightness_down"
@@ -84,13 +90,15 @@ case $1 in
 
     brightness_up)
     # Increases brightness and displays the notification
-    xbacklight -inc $brightness_step -time 0 
+    echo $(($(get_brightness)+$brightness_step)) | tee $bl_brightness
     show_brightness_notif
     ;;
 
     brightness_down)
     # Decreases brightness and displays the notification
-    xbacklight -dec $brightness_step -time 0
+    if [ "$(get_brightness)" -gt "$brightness_step" ]; then
+       echo $(($(get_brightness)-$brightness_step)) | tee $bl_brightness
+    fi
     show_brightness_notif
     ;;
 esac
