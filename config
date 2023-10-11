@@ -583,6 +583,12 @@ strip_workspace_numbers yes
 bindsym $mod+d exec rofi -modi drun -show drun \
 		-config ~/.config/rofi/rofidmenu.rasi
 
+
+## Rofi calculator
+bindsym $mod+plus exec rofi -modi calc -show calc \
+		-config ~/.config/rofi/rofidmenu.rasi
+
+
 #bindsym F9 exec rofi -modi drun -show drun \
 #		-config ~/.config/rofi/rofidmenu.rasi
 
