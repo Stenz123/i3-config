@@ -111,6 +111,7 @@ bindsym $mod+Control+Right move workspace to output right
         bindsym $mod+Mod1+Down resize grow height 5 px or 5 ppt
         bindsym $mod+Mod1+Up resize shrink height 5 px or 5 ppt
         bindsym $mod+Mod1+Right resize grow width 5 px or 5 ppt
+        bindsym $mod+Mod1+Left resize shrink width 5 px or 5 ppt
 
 ######################################
 # keybindings for different actions: #
@@ -292,7 +293,7 @@ exec --no-startup-id /usr/lib/python3.11/site-packages/autotiling/main.py
 #exec_always --no-startup-id picom -b
 #
 # for custom config:
-#exec_always --no-startup-id picom --config  ~/.config/picom.conf
+exec_always --no-startup-id picom --config  ~/.config/picom/picom.conf
 
 #############################################
 # autostart applications/services on login: #
@@ -362,58 +363,28 @@ for_window [class="urxvt"] border pixel 1
 # color settings for bar and windows #
 ######################################
 
-# Define colors variables:
-set $darkbluetrans	#08052be6
-set $darkblue		#08052b
-set $lightblue		#5294e2
-set $urgentred		#e53935
-set $white		#ffffff
-set $black		#000000
-set $purple		#e345ff
-set $darkgrey		#383c4a
-set $grey		#b0b5bd
-set $mediumgrey		#8b8b8b
-set $yellowbrown	#e1b700
 
-# define colors for windows:
-#class		        	border		bground		text		indicator	child_border
-client.focused		    	$lightblue	$darkblue	$white		$mediumgrey	$mediumgrey
-client.unfocused	    	$darkblue	$darkblue	$grey		$darkgrey	$darkgrey
-client.focused_inactive		$darkblue	$darkblue	$grey		$black		$black
-client.urgent		    	$urgentred	$urgentred	$white		$yellowbrown	$yellowbrown
+# #2f343f
 
-############################################
-# bar settings (input comes from i3blocks) #
-############################################
+# set colors
+set $bg-color            #1B3240
+set $inactive-bg-color   #1B3240
+set $active-bg-color     #7775BF
+set $text-color          #ffffff
+set $inactive-text-color #ffffff
+set $urgent-bg-color     #8E4F69
 
-# Start i3bar to display a workspace bar
-# (plus the system information i3status finds out, if available)
 bar {
-		font pango: Noto Sans Regular 10
-		status_command i3blocks -c ~/.config/i3/i3blocks.conf
-	    	position top
-#	    	i3bar_command i3bar --transparency
-# it could be that you have no primary display set: set one (xrandr --output <output> --primary)
-# reference: https://i3wm.org/docs/userguide.html#_tray_output
-		    #tray_output primary
-		    tray_padding 0
-
-# When strip_workspace_numbers is set to yes,
-# any workspace that has a name of the form
-# “[n][:][NAME]” will display only the name.
-strip_workspace_numbers yes
-##strip_workspace_name no
-
-		    colors {
-		    separator          $purple
-		    background         $darkgrey
-		    statusline         $white
-#                          		border 		        bg		txt		indicator
-		focused_workspace	$mediumgrey	   	$grey		$darkgrey	$purple
-		active_workspace	$lightblue      	$mediumgrey	$darkgrey	$purple
-		inactive_workspace	$darkgrey   		$darkgrey	$grey		$purple
-		urgent_workspace	$urgentred	    	$urgentred	$white		$purple
-	}
+  status_command i3blocks -c ~/.config/i3/i3blocks.conf
+  position top
+  colors {
+                background $bg-color
+                separator #630f8a
+                #                  border             background         text
+                focused_workspace  $bg-color          $active-bg-color   $text-color
+                inactive_workspace $inactive-bg-color $inactive-bg-color $inactive-text-color
+                urgent_workspace   $urgent-bg-color   $urgent-bg-color   $text-color
+  }
 }
 
 bindsym $mod+d exec rofi -modi drun -show drun \
