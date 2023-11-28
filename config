@@ -26,8 +26,8 @@ workspace_layout default
 new_window pixel 1
 
 # Set inner/outer gaps
-gaps inner 6
-gaps outer 3
+gaps inner 15
+gaps outer 0
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
