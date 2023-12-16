@@ -427,6 +427,8 @@ exec_always --no-startup-id autotiling
 # set border of floating window
 for_window [class="urxvt"] border pixel 1
 
+#no window borders
+
 # set size of floating window
 #for_window [window_role="(?i)GtkFileChooserDialog"] resize set 640 480 #to set size of file choose dialog
 #for_window [class=".*"] resize set 640 480 #to change size of all floating windows 
@@ -461,6 +463,12 @@ bar {
                 urgent_workspace   $urgent-bg-color   $urgent-bg-color   $text-color
   }
 }
+
+#colors:                border  backgr. text    ind.
+client.focused          $active-bg-color  $active-bg-color #ffffff $active-bg-color
+#client.focused_inactive $bg-color #222222 #ffffff #222222
+#client.unfocused        $bg-color #222222 #ffffff #222222
+#client.urgent           $urgent-bg-color #900000 #ffffff #222222
 
 bindsym $mod+d exec rofi -modi drun -show drun \
 		-config ~/.config/rofi/rofidmenu.rasi
