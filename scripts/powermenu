@@ -1,29 +1,3 @@
-#!/usr/bin/env bash
-#
-# Use rofi/zenity to change system runstate thanks to systemd.
-#
-# Note: this currently relies on associative array support in the shell.
-#
-# Inspired from i3pystatus wiki:
-# https://github.com/enkore/i3pystatus/wiki/Shutdown-Menu
-#
-# Copyright 2015 Benjamin Chrétien <chretien at lirmm dot fr>
-#
-# This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# (at your option) any later version.
-
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-
-# You should have received a copy of the GNU General Public License
-# along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
-# modified to work with latest rofi update by joekamprad <joekamprad@endeavouros.com>
-
 #######################################################################
 #                            BEGIN CONFIG                             #
 #######################################################################
@@ -116,10 +90,9 @@ typeset -A menu
 menu=(
   [ Shutdown]="systemctl poweroff"
   [ Reboot]="systemctl reboot"
-  [ Suspend]="systemctl suspend"
-  [ Hibernate]="systemctl hibernate"
   [ Lock]="~/.config/i3/scripts/blur-lock"
   [ Logout]="i3-msg exit"
+  [ Windows]="systemctl reboot --boot-loader-entry=auto-windows"
   [ Cancel]=""
 )
 
